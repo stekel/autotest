@@ -1,0 +1,30 @@
+{
+    "name": "stekel/autotest",
+    "description": "Automatically run phpunit after saving one of your project files.",
+    "authors": [
+        {
+            "name": "Stephen Keller",
+            "github": "@stekel"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "stekel\\AutoTest\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "stekel\\AutoTest\\AutoTestServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+}
