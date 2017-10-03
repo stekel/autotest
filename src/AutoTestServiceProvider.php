@@ -3,7 +3,7 @@
 namespace stekel\AutoTest;
 
 use Illuminate\Support\ServiceProvider;
-use stekel\AutoTest\Command as AutoTestCommand;
+use stekel\AutoTest\Laravel\AutoTest as AutoTestCommand;
 
 class AutoTestServiceProvider extends ServiceProvider
 {
