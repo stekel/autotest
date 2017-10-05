@@ -55,7 +55,12 @@ class AutoTest extends Command {
      */
     public function handle() {
         
-        $command = new AutoTestCommand($this->ignoredPaths);
+        $command = new AutoTestCommand([
+            'filter' => $this->option('filter'),
+            'coverage' => $this->option('coverage'),
+            'directory' => $this->option('directory'),
+            'ignoredPaths' => $this->ignoredPaths
+        ]);
         
         (new AutoTestManager($command))->fire();
     }    

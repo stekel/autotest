@@ -15,18 +15,18 @@ class Command {
     protected $command = '';
     
     /**
-     * Ignored Paths
+     * Configuration
      * 
      * @var array
      */
-    protected $ignoredPaths;
+    protected $config = [];
     
     /**
      * Construct
      */
-    public function __construct(array $ignoredPaths=[]) {
+    public function __construct(array $config=[]) {
         
-        $this->ignoredPaths = $ignoredPaths;
+        $this->config = $config;
     }
     
     /**
@@ -71,9 +71,9 @@ class Command {
         
         $this->command .= 'echo '.(($escape) ? '-e' : '').
             ' \'Auto-Testing is Running... [phpunit '.
-            // ( ($this->option('directory')) ? $this->directory() : '').
-            // ( ($this->option('filter')) ? '--filter '.$this->option('filter') : '').
-            // ( (! $this->option('coverage')) ? ' --no-coverage' : '').
+            ( ( isset($this->config['directory']) ) ? '--directory '.$this->config['directory'] : '').
+            ( ( isset($this->config['filter']) ) ? '--filter '.$this->config['filter'] : '').
+            ( ( isset($this->config['coverage']) && $this->config['coverage'] ) ? '' : ' --no-coverage').
             ']\r\n\' && ';
             
         return $this;
@@ -105,20 +105,20 @@ class Command {
         
         $this->command .= getcwd().'/vendor/bin/phpunit ';
         
-        // if ( $this->option('directory') ) {
-        //     
-        //     $phpunit .= ' '.$this->directory();
-        // }
-        // 
-        // if ( $this->option('filter') ) {
-        //     
-        //     $phpunit .= '--filter '.$this->option('filter').' ';
-        // }
-        // 
-        // if ( ! $this->option('coverage') ) {
-        //     
-        //     $phpunit .= '--no-coverage ';
-        // }
+        if ( isset($this->config['directory']) ) {
+            
+            $this->directory();
+        }
+        
+        if (  isset($this->config['filter'])  ) {
+            
+            $this->command .= '--filter '.$this->config['filter'].' ';
+        }
+        
+        if ( ! isset($this->config['coverage']) && ! $this->config['coverage'] ) {
+            
+            $this->command .= '--no-coverage ';
+        }
         
         $this->command .= '&& echo -e \'\r\nTests are Passing!\' || echo -e \'\r\nOops...something failed!\'';
         
@@ -132,7 +132,7 @@ class Command {
      */
     public function fileListing() {
         
-        $this->command .= 'find . -name "*.php" '.implode(' ', collect($this->ignoredPaths)->transform(function($path) {
+        $this->command .= 'find . -name "*.php" '.implode(' ', collect($this->config['ignoredPaths'])->transform(function($path) {
             
             return '-not -path "./'.$path.'"';
         })->toArray()).' | ';
@@ -147,7 +147,7 @@ class Command {
      */
     public function directory() {
         
-        $this->command .= base_path().'/tests/'.$this->option('directory').'/. ';
+        $this->command .= base_path().'/tests/'.$this->config['directory'].'/. ';
         
         return $this;
     }
