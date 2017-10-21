@@ -14,6 +14,14 @@ class AutoTestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/Config/autotest.php' => config_path('autotest.php'),
+        ]);
+        
+        $this->mergeConfigFrom(
+            __DIR__.'/Config/autotest.php', 'autotest'
+        );
+    
         if ($this->app->runningInConsole()) {
             
             $this->commands([

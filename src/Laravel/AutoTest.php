@@ -27,18 +27,6 @@ class AutoTest extends Command {
     protected $description = 'Automatically run unit tests when a file is saved by utilizing entr.';
     
     /**
-     * Ignored Paths
-     *
-     * @var array
-     */
-    protected $ignoredPaths = [
-        'vendor/*',
-        'storage/*',
-        'resources/*',
-        'database/*'
-    ];
-    
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -59,7 +47,7 @@ class AutoTest extends Command {
             'filter' => $this->option('filter'),
             'coverage' => $this->option('coverage'),
             'directory' => $this->option('directory'),
-            'ignoredPaths' => $this->ignoredPaths
+            'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         
         (new AutoTestManager($command))->fire();
