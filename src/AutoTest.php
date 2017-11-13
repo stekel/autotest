@@ -11,7 +11,7 @@ class AutoTest {
     
     /**
      * Command
-     * 
+     *
      * @var Command
      */
     protected $command;
@@ -28,7 +28,7 @@ class AutoTest {
     
     /**
      * Fire up entr to listen for file changes
-     * 
+     *
      * @return void
      */
     public function fire() {
@@ -38,13 +38,13 @@ class AutoTest {
             ->title()
             ->fileListing()
             ->entr();
-        // dd($this->command->get());
+        
         $this->command->execute();
     }
     
     /**
      * Verify all prerequisites
-     * 
+     *
      * @return void
      */
     private function checkPreRecs() {

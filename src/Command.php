@@ -9,14 +9,14 @@ class Command {
     
     /**
      * Command to run
-     * 
+     *
      * @var string
      */
     protected $command = '';
     
     /**
      * Configuration
-     * 
+     *
      * @var array
      */
     protected $config = [];
@@ -31,7 +31,7 @@ class Command {
     
     /**
      * Execute the command
-     * 
+     *
      * @return void
      */
     public function execute() {
@@ -41,7 +41,7 @@ class Command {
     
     /**
      * Return the command
-     * 
+     *
      * @return string
      */
     public function get() {
@@ -51,7 +51,7 @@ class Command {
     
     /**
      * Clear
-     * 
+     *
      * @return Command
      */
     public function clear() {
@@ -63,25 +63,25 @@ class Command {
     
     /**
      * Build title
-     * 
+     *
      * @param  boolean $escape
      * @return Command
      */
     public function title($escape=false) {
         
         $this->command .= 'echo '.(($escape) ? '-e' : '').
-            ' \'Auto-Testing is Running... [phpunit '.
+            ' \'\033[34mAuto-Testing is Running...\033[0m [\033[36mphpunit '.
             ( ( isset($this->config['directory']) ) ? '--directory '.$this->config['directory'] : '').
             ( ( isset($this->config['filter']) ) ? '--filter '.$this->config['filter'] : '').
             ( ( isset($this->config['coverage']) && $this->config['coverage'] ) ? '' : ' --no-coverage').
-            ']\r\n\' && ';
+            '\033[0m]\r\n\' && ';
             
         return $this;
     }
     
     /**
      * Entr
-     * 
+     *
      * @return Command
      */
     public function entr() {
@@ -95,7 +95,7 @@ class Command {
     
     /**
      * PhpUnit
-     * 
+     *
      * @return Command
      */
     public function phpunit() {
@@ -120,14 +120,14 @@ class Command {
             $this->command .= '--no-coverage ';
         }
         
-        $this->command .= '&& echo -e \'\r\nTests are Passing!\' || echo -e \'\r\nOops...something failed!\'';
+        $this->command .= '&& echo -e \'\r\n\033[1m\033[32m\u2713 Tests are Passing!\033[0m\' || echo -e \'\r\n\033[1m\033[31mOops...something failed!\033[0m\'';
         
         return $this;
     }
     
     /**
      * Build file listing command
-     * 
+     *
      * @return Command
      */
     public function fileListing() {
@@ -142,7 +142,7 @@ class Command {
     
     /**
      * Build directory path
-     * 
+     *
      * @return string
      */
     public function directory() {
