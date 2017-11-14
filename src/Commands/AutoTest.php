@@ -34,7 +34,7 @@ class AutoTest extends Command {
     public function title($escape=false) {
         
         $this->command .= 'echo '.(($escape) ? '-e' : '').
-            ' \'\033[34mAuto-Testing is Running...\033[0m [\033[36m'.$this->config['subCommand'].
+            ' \'\033[34mAutoTest Running...\033[0m [\033[36m'.$this->config['subCommand'].
             '\033[0m]\r\n\' && ';
         
         return $this;
@@ -60,7 +60,7 @@ class AutoTest extends Command {
      */
     public function result() {
         
-        $this->command .= '&& echo -e \'\r\n\033[1m\033[32m\u2713 Tests are Passing!\033[0m\' || echo -e \'\r\n\033[1m\033[31mOops...something failed!\033[0m\'';
+        $this->command .= '&& echo -e \'\r\n\033[1m\033[32m\u2713 Tests are passing!\033[0m\' || echo -e \'\r\n\033[1m\033[31mTests are failing!\033[0m\'';
         
         return $this;
     }

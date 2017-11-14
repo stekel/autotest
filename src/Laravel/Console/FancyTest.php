@@ -4,6 +4,7 @@ namespace stekel\AutoTest\Laravel\Console;
 
 use Illuminate\Console\Command;
 use stekel\AutoTest\Commands\PhpUnit;
+use stekel\AutoTest\FancyTest as FancyTestManager;
 
 class FancyTest extends Command {
     
@@ -49,60 +50,6 @@ class FancyTest extends Command {
             'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         
-        $handle = $command->execute();
-        $phpunitDone = false;
-        
-        while (true) {
-            
-            if ($phpunitDone) {
-                
-                $read = fgets($handle);
-            } else {
-                
-                $read = fread($handle, 256);
-            }
-            
-            if (! str_contains($read, '.')) {
-                
-                $phpunitDone = true;
-            }
-            
-            $output = $read;
-            
-            if (config('autotest.fancyTest.simplifyLaravelPipeline')) {
-                
-                if (str_contains($output, 'vendor/laravel')) {
-                    
-                    echo 'Laravel framework pipline: ';
-                    
-                    while (true) {
-                        
-                        $read = fgets($handle);
-                        
-                        if (str_contains($read, 'vendor/laravel')) {
-                            
-                            echo '.';
-                        } else {
-                            
-                            echo "\n";
-                            $output = $read;
-                            break;
-                        }
-                    }
-                }
-            }
-            
-            if (config('autotest.fancyTest.simplifyProjectPath')) {
-                
-                $output = str_replace(base_path(), '{project}', $output);
-            }
-            
-            echo $output;
-            
-            if ($output == "") {
-                
-                break;
-            }
-        }
+        return (new FancyTestManager($command))->fire();
     }
 }

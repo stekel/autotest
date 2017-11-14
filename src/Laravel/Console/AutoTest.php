@@ -44,14 +44,25 @@ class AutoTest extends Command {
      */
     public function handle() {
         
-        $fancyTest = new PhpUnitCommand([
-            'filter' => $this->option('filter'),
-            'coverage' => $this->option('coverage'),
-            'directory' => $this->option('directory')
-        ]);
+        $subCommand = 'artisan stekel:fancytest';
+        
+        if ($this->option('filter')) {
+            
+            $subCommand .= ' -f '.$this->option('filter');
+        }
+        
+        if ($this->option('coverage')) {
+            
+            $subCommand .= ' -c ';
+        }
+        
+        if ($this->option('directory')) {
+            
+            $subCommand .= ' -d '.$this->option('directory');
+        }
         
         $autoTest = new AutoTestCommand([
-            'subCommand' => $fancyTest->get(),
+            'subCommand' => $subCommand,
             'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         

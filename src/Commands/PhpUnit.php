@@ -14,8 +14,6 @@ class PhpUnit extends Command {
      */
     public function handle() {
         
-        $this->clear();
-        
         $this->command .= base_path().'/vendor/bin/phpunit ';
         
         if ( isset($this->config['directory']) ) {

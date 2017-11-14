@@ -32,5 +32,6 @@ return [
     'fancyTest' => [
         'simplifyProjectPath' => true,
         'simplifyLaravelPipeline' => true,
+        'removePhpUnitHeader' => true,
     ],
 ];
