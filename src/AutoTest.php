@@ -2,6 +2,7 @@
 
 namespace stekel\AutoTest;
 
+use stekel\AutoTest\Commands\AutoTest as AutoTestCommand;
 use Exceptions\EntrNotInstalled;
 
 /**
@@ -19,7 +20,7 @@ class AutoTest {
     /**
      * Construct
      */
-    public function __construct(Command $command) {
+    public function __construct(AutoTestCommand $command) {
         
         $this->command = $command;
         
@@ -33,13 +34,7 @@ class AutoTest {
      */
     public function fire() {
         
-        $this->command
-            ->clear()
-            ->title()
-            ->fileListing()
-            ->entr();
-        
-        $this->command->execute();
+        $this->command->fire();
     }
     
     /**

@@ -1,10 +1,11 @@
 <?php
 
-namespace stekel\AutoTest\Laravel;
+namespace stekel\AutoTest\Laravel\Console;
 
 use Illuminate\Console\Command;
 use stekel\AutoTest\AutoTest as AutoTestManager;
-use stekel\AutoTest\Command as AutoTestCommand;
+use stekel\AutoTest\Commands\AutoTest as AutoTestCommand;
+use stekel\AutoTest\Commands\PhpUnit as PhpUnitCommand;
 
 class AutoTest extends Command {
     
@@ -43,13 +44,17 @@ class AutoTest extends Command {
      */
     public function handle() {
         
-        $command = new AutoTestCommand([
+        $fancyTest = new PhpUnitCommand([
             'filter' => $this->option('filter'),
             'coverage' => $this->option('coverage'),
-            'directory' => $this->option('directory'),
+            'directory' => $this->option('directory')
+        ]);
+        
+        $autoTest = new AutoTestCommand([
+            'subCommand' => $fancyTest->get(),
             'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         
-        (new AutoTestManager($command))->fire();
-    }    
+        (new AutoTestManager($autoTest))->fire();
+    }
 }

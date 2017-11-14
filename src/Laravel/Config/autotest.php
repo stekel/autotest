@@ -17,7 +17,7 @@ return [
     | Ignored Paths
     |--------------------------------------------------------------------------
     |
-    | Define paths within your project to be ignored by the running entr 
+    | Define paths within your project to be ignored by the running entr
     | process. This is an array of paths relative to your project root.
     |
     | Example: 'vendor/*''
@@ -29,4 +29,8 @@ return [
         'storage/*'
     ],
 
+    'fancyTest' => [
+        'simplifyProjectPath' => true,
+        'simplifyLaravelPipeline' => true,
+    ],
 ];
