@@ -26,7 +26,7 @@ class PhpUnit extends Command {
             $this->command .= '--filter '.$this->config['filter'].' ';
         }
         
-        if ( ! isset($this->config['coverage']) && ! $this->config['coverage'] ) {
+        if ( ! isset($this->config['coverage']) || ! $this->config['coverage'] ) {
             
             $this->command .= '--no-coverage ';
         }

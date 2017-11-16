@@ -91,7 +91,7 @@ class FancyTest {
                 }
             }
             
-            if (config('autotest.fancyTest.simplifyProjectPath')) {
+            if (config('autotest.fancyTest.simplifyProjectPath') && ! starts_with($output, '-') && ! starts_with($output, '+') ) {
                 
                 $output = str_replace(base_path(), '{project}', $output);
             }
