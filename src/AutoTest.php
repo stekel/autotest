@@ -18,11 +18,19 @@ class AutoTest {
     protected $command;
     
     /**
+     * Config
+     *
+     * @return Config
+     */
+    protected $config;
+    
+    /**
      * Construct
      */
-    public function __construct(AutoTestCommand $command) {
+    public function __construct(AutoTestCommand $command, Config $config) {
         
         $this->command = $command;
+        $this->config = $config;
         
         $this->checkPreRecs();
     }

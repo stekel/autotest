@@ -39,7 +39,7 @@ class FancyTest {
      * @return void
      */
     public function fire() {
-        var_dump($this->command->get());exit;
+        
         $handle = $this->command->execute();
         $phpunitDone = false;
         

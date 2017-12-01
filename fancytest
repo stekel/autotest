@@ -17,14 +17,15 @@ foreach ($autoloads as $autoload) {
     }
 }
 
-unset($argv[0]);
+$arguments = getopt('f:d:', ['no-coverage']);
+
+$phpunit = new stekel\AutoTest\Commands\PhpUnit([
+    'filter' => isset($arguments['f']) ? $arguments['f'] : null,
+    'directory' => isset($arguments['d']) ? $arguments['d'] : null,
+    'coverage' => isset($arguments['no-coverage']) ? !$arguments['no-coverage'] : null
+]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();
 $config->setBasePath(realpath(__DIR__));
 
-$autotest = new stekel\AutoTest\Commands\AutoTest([
-    'subCommand' => 'fancytest '.implode(' ', $argv),
-    'ignoredPaths' => $config->ignoredPaths()
-]);
-
-(new stekel\AutoTest\AutoTest($autotest, $config))->fire();
+(new stekel\AutoTest\FancyTest($phpunit, $config))->fire();
