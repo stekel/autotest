@@ -48,7 +48,7 @@ class AutoTest extends Command {
         $this->command .= 'entr bash -c "';
         $this->clear();
         $this->title(true);
-        $this->command .= $this->config['subCommand'];
+        $this->command .= $this->config['subCommand'].' ';
         $this->result();
         $this->command .= '"';
         

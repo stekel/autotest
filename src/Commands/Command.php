@@ -35,12 +35,6 @@ abstract class Command implements CommandContract {
         
         $this->basePath = realpath(__DIR__.'/../../');
         
-        if (isset($config['basePath'])) {
-            
-            $this->basePath = $config['basePath'];
-            unset($config['basePath']);
-        }
-        
         $this->config = $config;
     }
     
