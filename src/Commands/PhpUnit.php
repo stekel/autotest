@@ -14,7 +14,7 @@ class PhpUnit extends Command {
      */
     public function handle() {
         
-        $this->command .= base_path().'/vendor/bin/phpunit ';
+        $this->command .= $this->basePath.'/vendor/bin/phpunit ';
         
         if ( isset($this->config['directory']) ) {
             
@@ -41,7 +41,7 @@ class PhpUnit extends Command {
      */
     private function directory() {
         
-        $this->command .= base_path().'/tests/'.str_finish($this->config['directory'], '/').'. ';
+        $this->command .= $this->basePath.'/tests/'.$this->stringFinish($this->config['directory'], '/').'. ';
         
         return $this;
     }

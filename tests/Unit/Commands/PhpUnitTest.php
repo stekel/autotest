@@ -12,7 +12,7 @@ class PhpUnitTest extends TestCase {
         
         $phpunit = new PhpUnit();
         
-        $this->assertEquals(base_path().'/vendor/bin/phpunit --no-coverage ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -22,7 +22,7 @@ class PhpUnitTest extends TestCase {
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals(base_path().'/vendor/bin/phpunit '.base_path().'/tests/Unit/. --no-coverage ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit '.$this->basePath.'/tests/Unit/. --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -32,7 +32,7 @@ class PhpUnitTest extends TestCase {
             'filter' => 'UserTest'
         ]);
         
-        $this->assertEquals(base_path().'/vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -42,7 +42,7 @@ class PhpUnitTest extends TestCase {
             'coverage' => true
         ]);
         
-        $this->assertEquals(base_path().'/vendor/bin/phpunit ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ', $phpunit->get());
     }
     
     /** @test **/
@@ -53,6 +53,6 @@ class PhpUnitTest extends TestCase {
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals(base_path().'/vendor/bin/phpunit '.base_path().'/tests/Unit/. ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit '.$this->basePath.'/tests/Unit/. ', $phpunit->get());
     }
 }

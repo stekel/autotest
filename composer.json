@@ -14,6 +14,11 @@
             "stekel\\AutoTest\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "stekel\\AutoTest\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [

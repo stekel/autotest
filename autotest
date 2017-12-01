@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+
+$autoloads = [
+    __DIR__.'/vendor/autoload.php',
+    __DIR__.'/../vendor/autoload.php',
+    __DIR__.'/../../../vendor/autoload.php',
+];
+
+foreach ($autoloads as $autoload) {
+    
+    if (file_exists($autoload)) {
+        
+        require $autoload;
+
+        break;
+    }
+}
+
+$arguments = getopt('f:d:', ['no-coverage']);
+$basePath = realpath(__DIR__);
+
+$phpunit = new stekel\AutoTest\Commands\PhpUnit([
+    'filter' => isset($arguments['f']) ? $arguments['f'] : null,
+    'directory' => isset($arguments['d']) ? $arguments['d'] : null,
+    'coverage' => isset($arguments['no-coverage']) ? !$arguments['no-coverage'] : null,
+    'basePath' => $basePath
+]);
+
+$config = stekel\AutoTest\Config::buildFromLaravel();
+$config->setBasePath($basePath);
+
+(new stekel\AutoTest\FancyTest($phpunit, $config))->fire();

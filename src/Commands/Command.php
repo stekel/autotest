@@ -22,9 +22,24 @@ abstract class Command implements CommandContract {
     protected $config = [];
     
     /**
+     * Base path
+     *
+     * @return string
+     */
+    protected $basePath;
+    
+    /**
      * Construct
      */
     public function __construct(array $config=[]) {
+        
+        $this->basePath = realpath(__DIR__.'/../../');
+        
+        if (isset($config['basePath'])) {
+            
+            $this->basePath = $config['basePath'];
+            unset($config['basePath']);
+        }
         
         $this->config = $config;
     }
@@ -75,5 +90,12 @@ abstract class Command implements CommandContract {
         $this->command .= 'clear && ';
         
         return $this;
+    }
+    
+    public function stringFinish($value, $cap) {
+    
+        $quoted = preg_quote($cap, '/');
+        
+        return preg_replace('/(?:'.$quoted.')+$/u', '', $value).$cap;
     }
 }

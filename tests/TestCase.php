@@ -2,22 +2,19 @@
 
 namespace stekel\AutoTest\Tests;
 
-use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase {
+class TestCase extends BaseTestCase {
     
     /**
-     * Creates the application.
+     * Base path
      *
-     * @return \Illuminate\Foundation\Application
+     * @return string
      */
-    public function createApplication()
-    {
-        $app = require __DIR__.'/../../../../bootstrap/app.php';
-
-        $app->make(Kernel::class)->bootstrap();
-
-        return $app;
+    protected $basePath;
+    
+    public function setUp() {
+    
+        $this->basePath = realpath(__DIR__.'/../');
     }
 }

@@ -3,6 +3,7 @@
 namespace stekel\AutoTest;
 
 use stekel\AutoTest\Commands\PhpUnit;
+use stekel\AutoTest\Config;
 
 /**
  * FancyTest Class
@@ -17,11 +18,19 @@ class FancyTest {
     protected $command;
     
     /**
+     * Config
+     *
+     * @return Config
+     */
+    protected $config;
+    
+    /**
      * Construct
      */
-    public function __construct(PhpUnit $command) {
+    public function __construct(PhpUnit $command, Config $config) {
         
         $this->command = $command;
+        $this->config = $config;
     }
     
     /**
@@ -30,22 +39,22 @@ class FancyTest {
      * @return void
      */
     public function fire() {
-        
+        var_dump($this->command->get());exit;
         $handle = $this->command->execute();
         $phpunitDone = false;
         
-        if (config('autotest.fancyTest.removePhpUnitHeader')) {
+        if ($this->config->removePhpUnitHeader()) {
             
             $read = fgets($handle);
             
-            if (! starts_with($read, 'PHPUnit')) {
+            if (! $this->startsWith($read, 'PHPUnit')) {
                 
                 rewind($handle);
             }
             
             $read = fgets($handle);
             
-            if (! starts_with($read, "\n")) {
+            if (! $this->startsWith($read, "\n")) {
                 
                 rewind($handle);
             }
@@ -61,16 +70,16 @@ class FancyTest {
                 $read = fread($handle, 128);
             }
             
-            if (! str_contains($read, '.')) {
+            if (! $this->stringContains($read, '.')) {
                 
                 $phpunitDone = true;
             }
             
             $output = $read;
             
-            if (config('autotest.fancyTest.simplifyLaravelPipeline')) {
+            if ($this->config->simplifyLaravelPipeline()) {
                 
-                if (str_contains($output, 'vendor/laravel')) {
+                if ($this->stringContains($output, 'vendor/laravel')) {
                     
                     echo 'Laravel framework pipline: ';
                     
@@ -78,7 +87,7 @@ class FancyTest {
                         
                         $read = fgets($handle);
                         
-                        if (str_contains($read, 'vendor/laravel')) {
+                        if ($this->stringContains($read, 'vendor/laravel')) {
                             
                             echo '.';
                         } else {
@@ -91,9 +100,9 @@ class FancyTest {
                 }
             }
             
-            if (config('autotest.fancyTest.simplifyProjectPath') && ! starts_with($output, '-') && ! starts_with($output, '+') ) {
+            if ($this->config->simplifyProjectPath() && ! $this->startsWith($output, '-') && ! $this->startsWith($output, '+') ) {
                 
-                $output = str_replace(base_path(), '{project}', $output);
+                $output = str_replace(__DIR__, '{project}', $output);
             }
             
             if ($output == "ERRORS!\n" || $output == "FAILURES!\n") {
@@ -109,5 +118,15 @@ class FancyTest {
         fclose($handle);
         
         return 0;
+    }
+    
+    private function startsWith($string, $query) {
+        
+        return substr($string, 0, strlen($query)) === $query;
+    }
+    
+    private function stringContains($string, $query) {
+        
+        return strpos($string, $query) !== false;
     }
 }
