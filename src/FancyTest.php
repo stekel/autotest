@@ -20,7 +20,7 @@ class FancyTest {
     /**
      * Config
      *
-     * @return Config
+     * @var Config
      */
     protected $config;
     

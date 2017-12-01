@@ -1,21 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-$autoloads = [
-    __DIR__.'/vendor/autoload.php',
-    __DIR__.'/../vendor/autoload.php',
-    __DIR__.'/../../../vendor/autoload.php',
-];
+require 'src/AutoLoad.php';
 
-foreach ($autoloads as $autoload) {
-    
-    if (file_exists($autoload)) {
-        
-        require $autoload;
-
-        break;
-    }
-}
+stekel\AutoTest\autoload();
 
 $arguments = getopt('f:d:', ['no-coverage']);
 
