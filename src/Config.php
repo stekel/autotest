@@ -21,13 +21,6 @@ class Config {
         $this->params = $params;
     }
     
-    public function setBasePath($path) {
-    
-        $this->params['basePath'] = $path;
-        
-        return $this;
-    }
-    
     public static function buildFromLaravel() {
     
         $params = require __DIR__.'/Laravel/Config/autotest.php';

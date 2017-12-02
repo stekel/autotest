@@ -5,15 +5,14 @@ require 'src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
-$arguments = getopt('f:d:', ['no-coverage']);
+$arguments = getopt('f:d:', ['coverage']);
 
 $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
-    'coverage' => isset($arguments['no-coverage']) ? !$arguments['no-coverage'] : null
+    'coverage' => isset($arguments['coverage'])
 ]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();
-$config->setBasePath(realpath(__DIR__));
 
 (new stekel\AutoTest\FancyTest($phpunit, $config))->fire();

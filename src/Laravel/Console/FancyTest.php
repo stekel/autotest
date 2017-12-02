@@ -4,6 +4,7 @@ namespace stekel\AutoTest\Laravel\Console;
 
 use Illuminate\Console\Command;
 use stekel\AutoTest\Commands\PhpUnit;
+use stekel\AutoTest\Config;
 use stekel\AutoTest\FancyTest as FancyTestManager;
 
 class FancyTest extends Command {
@@ -43,6 +44,8 @@ class FancyTest extends Command {
      */
     public function handle() {
         
+        $config = Config::buildFromLaravel();
+        
         $command = new PhpUnit([
             'filter' => $this->option('filter'),
             'coverage' => $this->option('coverage'),
@@ -50,6 +53,6 @@ class FancyTest extends Command {
             'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         
-        return (new FancyTestManager($command))->fire();
+        return (new FancyTestManager($command, $config))->fire();
     }
 }

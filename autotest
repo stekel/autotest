@@ -8,7 +8,6 @@ stekel\AutoTest\autoload();
 unset($argv[0]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();
-$config->setBasePath(realpath(__DIR__));
 
 $autotest = new stekel\AutoTest\Commands\AutoTest([
     'subCommand' => 'fancytest '.implode(' ', $argv),

@@ -4,6 +4,7 @@ namespace stekel\AutoTest;
 
 use stekel\AutoTest\Commands\PhpUnit;
 use stekel\AutoTest\Config;
+use stekel\AutoTest\Str;
 
 /**
  * FancyTest Class
@@ -47,14 +48,14 @@ class FancyTest {
             
             $read = fgets($handle);
             
-            if (! $this->startsWith($read, 'PHPUnit')) {
+            if (! Str::startsWith($read, 'PHPUnit')) {
                 
                 rewind($handle);
             }
             
             $read = fgets($handle);
             
-            if (! $this->startsWith($read, "\n")) {
+            if (! Str::startsWith($read, "\n")) {
                 
                 rewind($handle);
             }
@@ -70,7 +71,7 @@ class FancyTest {
                 $read = fread($handle, 128);
             }
             
-            if (! $this->stringContains($read, '.')) {
+            if (! Str::contains($read, '.')) {
                 
                 $phpunitDone = true;
             }
@@ -79,7 +80,7 @@ class FancyTest {
             
             if ($this->config->simplifyLaravelPipeline()) {
                 
-                if ($this->stringContains($output, 'vendor/laravel')) {
+                if (Str::contains($output, 'vendor/laravel')) {
                     
                     echo 'Laravel framework pipline: ';
                     
@@ -87,7 +88,7 @@ class FancyTest {
                         
                         $read = fgets($handle);
                         
-                        if ($this->stringContains($read, 'vendor/laravel')) {
+                        if (Str::contains($read, 'vendor/laravel')) {
                             
                             echo '.';
                         } else {
@@ -98,9 +99,10 @@ class FancyTest {
                         }
                     }
                 }
+                
             }
             
-            if ($this->config->simplifyProjectPath() && ! $this->startsWith($output, '-') && ! $this->startsWith($output, '+') ) {
+            if ($this->config->simplifyProjectPath() && ! Str::startsWith($output, '-') && ! Str::startsWith($output, '+') ) {
                 
                 $output = str_replace(__DIR__, '{project}', $output);
             }
@@ -118,15 +120,5 @@ class FancyTest {
         fclose($handle);
         
         return 0;
-    }
-    
-    private function startsWith($string, $query) {
-        
-        return substr($string, 0, strlen($query)) === $query;
-    }
-    
-    private function stringContains($string, $query) {
-        
-        return strpos($string, $query) !== false;
     }
 }

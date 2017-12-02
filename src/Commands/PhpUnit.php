@@ -2,6 +2,8 @@
 
 namespace stekel\AutoTest\Commands;
 
+use stekel\AutoTest\Str;
+
 /**
  * PhpUnit Command
  */
@@ -41,7 +43,7 @@ class PhpUnit extends Command {
      */
     private function directory() {
         
-        $this->command .= $this->basePath.'/tests/'.$this->stringFinish($this->config['directory'], '/').'. ';
+        $this->command .= $this->basePath.'/tests/'.Str::finish($this->config['directory'], '/').'. ';
         
         return $this;
     }

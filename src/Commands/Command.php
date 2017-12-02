@@ -85,11 +85,4 @@ abstract class Command implements CommandContract {
         
         return $this;
     }
-    
-    public function stringFinish($value, $cap) {
-    
-        $quoted = preg_quote($cap, '/');
-        
-        return preg_replace('/(?:'.$quoted.')+$/u', '', $value).$cap;
-    }
 }

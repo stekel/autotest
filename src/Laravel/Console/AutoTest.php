@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use stekel\AutoTest\AutoTest as AutoTestManager;
 use stekel\AutoTest\Commands\AutoTest as AutoTestCommand;
 use stekel\AutoTest\Commands\PhpUnit as PhpUnitCommand;
+use stekel\AutoTest\Config;
 
 class AutoTest extends Command {
     
@@ -44,6 +45,8 @@ class AutoTest extends Command {
      */
     public function handle() {
         
+        $config = Config::buildFromLaravel();
+        
         $subCommand = 'artisan stekel:fancytest';
         
         if ($this->option('filter')) {
@@ -66,6 +69,6 @@ class AutoTest extends Command {
             'ignoredPaths' => config('autotest.ignoredPaths')
         ]);
         
-        (new AutoTestManager($autoTest))->fire();
+        (new AutoTestManager($autoTest, $config))->fire();
     }
 }
