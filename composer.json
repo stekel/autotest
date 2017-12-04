@@ -2,7 +2,7 @@
     "name": "stekel/autotest",
     "description": "Automatically run phpunit after saving one of your project files.",
     "license": "MIT",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.0"
     },
