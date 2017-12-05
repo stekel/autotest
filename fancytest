@@ -11,7 +11,7 @@ $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
     'coverage' => isset($arguments['coverage']),
-    'basePath' => realpath(__DIR__)
+    'basePath' => stekel\AutoTest\vendorDirectory()
 ]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();

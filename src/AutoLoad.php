@@ -26,3 +26,16 @@ if (!\function_exists('autoload')) {
         }
     }
 }
+
+if (!\function_exists('vendorDirectory')) {
+    
+    function vendorDirectory() {
+        
+        if (file_exists(realpath(__DIR__.'/../vendor/bin/phpunit'))) {
+            
+            return realpath(__DIR__.'/../');
+        }
+            
+        return realpath(__DIR__.'/../../../');
+    }
+}

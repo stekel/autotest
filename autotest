@@ -12,7 +12,7 @@ $config = stekel\AutoTest\Config::buildFromLaravel();
 $autotest = new stekel\AutoTest\Commands\AutoTest([
     'subCommand' => 'fancytest '.implode(' ', $argv),
     'ignoredPaths' => $config->ignoredPaths(),
-    'basePath' => realpath(__DIR__)
+    'basePath' => stekel\AutoTest\vendorDirectory()
 ]);
 
 (new stekel\AutoTest\AutoTest($autotest, $config))->fire();
