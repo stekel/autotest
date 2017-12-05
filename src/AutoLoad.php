@@ -36,6 +36,6 @@ if (!\function_exists('vendorDirectory')) {
             return realpath(__DIR__.'/../');
         }
             
-        return realpath(__DIR__.'/../../../');
+        return realpath(__DIR__.'/../../../../');
     }
 }
