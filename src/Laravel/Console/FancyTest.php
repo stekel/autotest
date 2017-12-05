@@ -50,7 +50,8 @@ class FancyTest extends Command {
             'filter' => $this->option('filter'),
             'coverage' => $this->option('coverage'),
             'directory' => $this->option('directory'),
-            'ignoredPaths' => config('autotest.ignoredPaths')
+            'ignoredPaths' => config('autotest.ignoredPaths'),
+            'basePath' => base_path()
         ]);
         
         return (new FancyTestManager($command, $config))->fire();

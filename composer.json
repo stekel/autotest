@@ -27,5 +27,9 @@
             ],
             "aliases": {}
         }
-    }
+    },
+    "bin": [
+        "bin/autotest",
+        "bin/fancytest"
+    ]
 }

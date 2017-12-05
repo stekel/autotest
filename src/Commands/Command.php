@@ -33,7 +33,7 @@ abstract class Command implements CommandContract {
      */
     public function __construct(array $config=[]) {
         
-        $this->basePath = realpath(__DIR__.'/../../');
+        $this->basePath = isset($config['basePath']) ? $config['basePath'] : realpath(__DIR__.'/../../');
         
         $this->config = $config;
     }

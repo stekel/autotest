@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require 'src/AutoLoad.php';
+require __DIR__.'/src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
@@ -11,7 +11,8 @@ $config = stekel\AutoTest\Config::buildFromLaravel();
 
 $autotest = new stekel\AutoTest\Commands\AutoTest([
     'subCommand' => 'fancytest '.implode(' ', $argv),
-    'ignoredPaths' => $config->ignoredPaths()
+    'ignoredPaths' => $config->ignoredPaths(),
+    'basePath' => realpath(__DIR__)
 ]);
 
 (new stekel\AutoTest\AutoTest($autotest, $config))->fire();

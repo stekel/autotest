@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-require 'src/AutoLoad.php';
+require __DIR__.'/src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
@@ -10,7 +10,8 @@ $arguments = getopt('f:d:', ['coverage']);
 $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
-    'coverage' => isset($arguments['coverage'])
+    'coverage' => isset($arguments['coverage']),
+    'basePath' => realpath(__DIR__)
 ]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();

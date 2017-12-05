@@ -66,7 +66,8 @@ class AutoTest extends Command {
         
         $autoTest = new AutoTestCommand([
             'subCommand' => $subCommand,
-            'ignoredPaths' => config('autotest.ignoredPaths')
+            'ignoredPaths' => config('autotest.ignoredPaths'),
+            'basePath' => base_path()
         ]);
         
         (new AutoTestManager($autoTest, $config))->fire();
