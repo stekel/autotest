@@ -29,7 +29,7 @@
         }
     },
     "bin": [
-        "bin/autotest",
-        "bin/fancytest"
+        "autotest",
+        "fancytest"
     ]
 }
