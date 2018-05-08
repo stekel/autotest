@@ -16,6 +16,16 @@ class PhpUnitTest extends TestCase {
     }
     
     /** @test **/
+    public function can_build_base_phpunit_command_with_local_path() {
+        
+        $phpunit = new PhpUnit([
+            'localphpunit' => true,
+        ]);
+        
+        $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
+    }
+    
+    /** @test **/
     public function can_build_phpunit_command_with_directory() {
         
         $phpunit = new PhpUnit([

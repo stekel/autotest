@@ -5,12 +5,13 @@ require __DIR__.'/src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
-$arguments = getopt('f:d:', ['coverage']);
+$arguments = getopt('f:d:', ['coverage', 'localphpunit']);
 
 $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
     'coverage' => isset($arguments['coverage']),
+    'localphpunit' => isset($arguments['localphpunit']),
     'basePath' => stekel\AutoTest\vendorDirectory()
 ]);
 

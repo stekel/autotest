@@ -16,14 +16,14 @@ class PhpUnit extends Command {
      */
     public function handle() {
         
-        $this->command .= $this->basePath.'/vendor/bin/phpunit ';
+        $this->buildPath();
         
         if ( isset($this->config['directory']) ) {
             
             $this->directory();
         }
         
-        if (  isset($this->config['filter'])  ) {
+        if ( isset($this->config['filter']) ) {
             
             $this->command .= '--filter '.$this->config['filter'].' ';
         }
@@ -34,6 +34,22 @@ class PhpUnit extends Command {
         }
         
         return $this;
+    }
+    
+    /**
+     * Build the path to phpunit
+     *
+     * @return void
+     */
+    private function buildPath() {
+        
+        if (isset($this->config['localphpunit']) && $this->config['localphpunit']) {
+            
+            $this->command .= './vendor/bin/phpunit ';
+            return;
+        }
+            
+        $this->command .= $this->basePath.'/vendor/bin/phpunit ';
     }
     
     /**
