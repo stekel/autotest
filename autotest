@@ -15,4 +15,4 @@ $autotest = new stekel\AutoTest\Commands\AutoTest([
     'basePath' => stekel\AutoTest\vendorDirectory()
 ]);
 
-(new stekel\AutoTest\AutoTest($autotest, $config))->fire();
+exit((new stekel\AutoTest\AutoTest($autotest, $config))->fire());

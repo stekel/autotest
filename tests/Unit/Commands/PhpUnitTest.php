@@ -32,7 +32,7 @@ class PhpUnitTest extends TestCase {
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit '.$this->basePath.'/tests/Unit/. --no-coverage ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ./tests/Unit/. --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -63,6 +63,6 @@ class PhpUnitTest extends TestCase {
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit '.$this->basePath.'/tests/Unit/. ', $phpunit->get());
+        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
     }
 }

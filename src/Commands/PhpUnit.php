@@ -59,7 +59,7 @@ class PhpUnit extends Command {
      */
     private function directory() {
         
-        $this->command .= $this->basePath.'/tests/'.Str::finish($this->config['directory'], '/').'. ';
+        $this->command .= './tests/'.Str::finish($this->config['directory'], '/').'. ';
         
         return $this;
     }

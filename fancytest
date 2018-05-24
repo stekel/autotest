@@ -17,4 +17,4 @@ $phpunit = new stekel\AutoTest\Commands\PhpUnit([
 
 $config = stekel\AutoTest\Config::buildFromLaravel();
 
-(new stekel\AutoTest\FancyTest($phpunit, $config))->fire();
+exit((new stekel\AutoTest\FancyTest($phpunit, $config))->fire());
