@@ -12,7 +12,7 @@ class PhpUnitTest extends TestCase {
         
         $phpunit = new PhpUnit();
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit --no-coverage ', $phpunit->get());
+        $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -26,13 +26,23 @@ class PhpUnitTest extends TestCase {
     }
     
     /** @test **/
+    public function can_build_base_phpunit_command_with_global_path() {
+        
+        $phpunit = new PhpUnit([
+            'globalphpunit' => true,
+        ]);
+        
+        $this->assertEquals('phpunit --no-coverage ', $phpunit->get());
+    }
+    
+    /** @test **/
     public function can_build_phpunit_command_with_directory() {
         
         $phpunit = new PhpUnit([
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ./tests/Unit/. --no-coverage ', $phpunit->get());
+        $this->assertEquals('./vendor/bin/phpunit ./tests/Unit/. --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -42,7 +52,7 @@ class PhpUnitTest extends TestCase {
             'filter' => 'UserTest'
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
+        $this->assertEquals('./vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
     }
     
     /** @test **/
@@ -52,7 +62,7 @@ class PhpUnitTest extends TestCase {
             'coverage' => true
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ', $phpunit->get());
+        $this->assertEquals('./vendor/bin/phpunit ', $phpunit->get());
     }
     
     /** @test **/
@@ -63,6 +73,6 @@ class PhpUnitTest extends TestCase {
             'directory' => 'Unit/'
         ]);
         
-        $this->assertEquals($this->basePath.'/vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
+        $this->assertEquals('./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
     }
 }

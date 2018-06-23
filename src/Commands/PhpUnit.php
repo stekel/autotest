@@ -48,8 +48,14 @@ class PhpUnit extends Command {
             $this->command .= './vendor/bin/phpunit ';
             return;
         }
+        
+        if (isset($this->config['globalphpunit']) && $this->config['globalphpunit']) {
             
-        $this->command .= $this->basePath.'/vendor/bin/phpunit ';
+            $this->command .= 'phpunit ';
+            return;
+        }
+            
+        $this->command .= './vendor/bin/phpunit ';
     }
     
     /**
