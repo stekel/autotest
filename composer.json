@@ -4,8 +4,8 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.0",
-        "phpunit/phpunit": "~6.0",
+        "php": ">7.0",
+        "phpunit/phpunit": ">6.0",
         "illuminate/console": "^5.5",
         "illuminate/support": "^5.5"
     },
