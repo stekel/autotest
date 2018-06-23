@@ -60,6 +60,7 @@ Run the following command from the root of a Laravel application
 ```bash
 php artisan stekel:autotest
 ```
+Note: this will use the local phpunit `./vendor/bin/phpunit`
 
 ### Generic
 
@@ -68,5 +69,18 @@ Run the following command from the root of a composer project with phpunit
 ```bash
 autotest
 ```
+Note: this will use the global phpunit `~/.composer/vendor/bin/phpunit`
 
 Your tests should run one time, after that `autotest` will run your tests every time a file within your project is saved. No more switching between your editor and a terminal.
+
+## Arguments & Flags
+
+`-f` Filter: passed to phpunit as the --filter parameter
+
+`-d` Directory: passed to phpunit as the directory argument, prepends './tests/'
+
+`--coverage` Code Coverage: pending phpunit is configured to output code coverage reports, removes the `--no-coverage` flag
+
+`--localphpunit` Force Local phpunit: forces the use of `./vendor/bin/phpunit` as the phpunit location
+
+`--globalphpunit` Force Global phpunit: forces the use of `~/.composer/vendor/bin/phpunit` as the phpunit location
