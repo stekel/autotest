@@ -15,11 +15,11 @@ class AutoTestTest extends TestCase {
             'subCommand' => 'ls',
             'ignoredPaths' => null
         ]);
-        
+
         $this->assertContains('clear && ', $autotest->get());
         $this->assertContains('find . -name "*.php" ', $autotest->get());
         $this->assertContains('| entr bash -c "clear && echo -e ', $autotest->get());
-        $this->assertContains('AutoTest Running...', $autotest->get());
+        $this->assertContains('AutoTest '.(new Config([]))->version.' Running...', $autotest->get());
         $this->assertContains('Tests are passing', $autotest->get());
         $this->assertContains('Tests are failing', $autotest->get());
     }

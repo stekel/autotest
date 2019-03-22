@@ -10,6 +10,13 @@ class Config {
      * @var array
      */
     protected $params;
+
+    /**
+     * Package version
+     *
+     * @var string
+     */
+    public $version = 'v0.7';
     
     /**
      * Construct

@@ -2,17 +2,9 @@
 
 namespace stekel\AutoTest\Commands;
 
-/**
- * AutoTest Command
- */
+use stekel\AutoTest\Config;
+
 class AutoTest extends Command {
-    
-    /**
-     * AutoTest command
-     *
-     * @var string
-     */
-    protected $autoTestCommand;
     
     /**
      * Handler
@@ -25,16 +17,17 @@ class AutoTest extends Command {
         $this->fileListing();
         $this->entr();
     }
-    
+
     /**
      * Build title
      *
      * @param  boolean $escape
+     * @return AutoTest
      */
     public function title($escape=false) {
         
         $this->command .= 'echo '.(($escape) ? '-e' : '').
-            ' \'\033[34mAutoTest Running...\033[0m [\033[36m'.$this->config['subCommand'].
+            ' \'\033[34mAutoTest '.(new Config([]))->version.' Running...\033[0m [\033[36m'.$this->config['subCommand'].
             '\033[0m]\r\n\' && ';
         
         return $this;
