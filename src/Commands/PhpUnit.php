@@ -4,15 +4,12 @@ namespace stekel\AutoTest\Commands;
 
 use stekel\AutoTest\Str;
 
-/**
- * PhpUnit Command
- */
 class PhpUnit extends Command {
-    
+
     /**
      * Handler
      *
-     * @return void
+     * @return PhpUnit
      */
     public function handle() {
         

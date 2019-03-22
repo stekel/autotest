@@ -2,20 +2,19 @@
 
 namespace stekel\AutoTest\Commands;
 
-/**
- * Command Contract
- */
 interface CommandContract {
-    
+
     /**
      * Construct
+     *
+     * @param array $config
      */
     public function __construct(array $config=[]);
-    
+
     /**
      * Execute the command and return a handler
      *
-     * @return *handler*
+     * @return  *handler
      */
     public function execute();
     

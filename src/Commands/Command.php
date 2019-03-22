@@ -2,9 +2,6 @@
 
 namespace stekel\AutoTest\Commands;
 
-/**
- * Command Class
- */
 abstract class Command implements CommandContract {
     
     /**
@@ -27,9 +24,11 @@ abstract class Command implements CommandContract {
      * @return string
      */
     protected $basePath;
-    
+
     /**
      * Construct
+     *
+     * @param array $config
      */
     public function __construct(array $config=[]) {
         
@@ -37,11 +36,11 @@ abstract class Command implements CommandContract {
         
         $this->config = $config;
     }
-    
+
     /**
      * Execute the command and return a handler
      *
-     * @return *handler*
+     * @return bool|resource *handler
      */
     public function execute() {
         
@@ -70,7 +69,7 @@ abstract class Command implements CommandContract {
     public function get() {
         
         $this->handle();
-        
+
         return $this->command;
     }
     

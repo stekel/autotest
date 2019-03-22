@@ -11,11 +11,13 @@ class AutoTest extends Command {
      *
      * @return void
      */
-    public function handle() {
-        
-        $this->clear();
-        $this->fileListing();
-        $this->entr();
+    public function handle()
+    {
+        if ($this->command == '') {
+            $this->clear();
+            $this->fileListing();
+            $this->entr();
+        }
     }
 
     /**
@@ -24,8 +26,8 @@ class AutoTest extends Command {
      * @param  boolean $escape
      * @return AutoTest
      */
-    public function title($escape=false) {
-        
+    public function title($escape=false)
+    {
         $this->command .= 'echo '.(($escape) ? '-e' : '').
             ' \'\033[34mAutoTest '.(new Config([]))->version.' Running...\033[0m [\033[36m'.$this->config['subCommand'].
             '\033[0m]\r\n\' && ';
@@ -36,14 +38,14 @@ class AutoTest extends Command {
     /**
      * Entr
      */
-    public function entr() {
-        
-        $this->command .= 'entr bash -c "';
+    public function entr()
+    {
+        $this->command .= 'entr -d bash -c "';
         $this->clear();
         $this->title(true);
         $this->command .= $this->config['subCommand'].' ';
         $this->result();
-        $this->command .= '"';
+        $this->command .= '"'." sleep 1 \n done ";
         
         return $this;
     }
@@ -51,8 +53,8 @@ class AutoTest extends Command {
     /**
      * Result
      */
-    public function result() {
-        
+    public function result()
+    {
         $this->command .= '&& echo -e \'\r\n\033[1m\033[32m\u2713 Tests are passing!\033[0m\' || echo -e \'\r\n\033[1m\033[31mTests are failing!\033[0m\'';
         
         return $this;
@@ -63,10 +65,9 @@ class AutoTest extends Command {
      *
      * @return Command
      */
-    public function fileListing() {
-        
-        $this->command .= 'find . -name "*.php" '.implode(' ', collect($this->config['ignoredPaths'])->transform(function($path) {
-            
+    public function fileListing()
+    {
+        $this->command .= 'while true; do '."\n".'find . -name "*.php" '.implode(' ', collect($this->config['ignoredPaths'])->transform(function ($path) {
             return '-not -path "./'.$path.'"';
         })->toArray()).' | ';
         
