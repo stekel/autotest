@@ -61,8 +61,10 @@ class PhpUnitTest extends TestCase {
         $phpunit = new PhpUnit([
             'coverage' => true
         ]);
-        
-        $this->assertEquals('php -c ./src/enable_xdebug.ini ./vendor/bin/phpunit ', $phpunit->get());
+
+        $path = str_replace('tests/Unit', 'src', __DIR__);
+
+        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini ./vendor/bin/phpunit ', $phpunit->get());
     }
     
     /** @test **/
@@ -72,7 +74,9 @@ class PhpUnitTest extends TestCase {
             'coverage' => true,
             'directory' => 'Unit/'
         ]);
-        
-        $this->assertEquals('php -c ./src/enable_xdebug.ini ./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
+
+        $path = str_replace('tests/Unit', 'src', __DIR__);
+
+        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini ./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
     }
 }

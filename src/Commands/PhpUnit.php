@@ -41,7 +41,7 @@ class PhpUnit extends Command {
     private function buildPath() {
 
         if (isset($this->config['coverage']) && $this->config['coverage']) {
-            $this->command .= 'php -c ./src/enable_xdebug.ini ';
+            $this->command .= 'php -c '.__DIR__.'/../enable_xdebug.ini ';
         }
 
         if (isset($this->config['localphpunit']) && $this->config['localphpunit']) {
