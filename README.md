@@ -77,6 +77,8 @@ Your tests should run one time, after that `autotest` will run your tests every 
 
 `-f` Filter: passed to phpunit as the --filter parameter
 
+`-g` Group: passed to phpunit as the --group parameter
+
 `-d` Directory: passed to phpunit as the directory argument, prepends './tests/'
 
 `--coverage` Code Coverage: pending phpunit is configured to output code coverage reports, removes the `--no-coverage` flag

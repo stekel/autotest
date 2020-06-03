@@ -5,10 +5,11 @@ require __DIR__.'/src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
-$arguments = getopt('f:d:', ['coverage', 'localphpunit', 'globalphpunit']);
+$arguments = getopt('f:d:g:', ['coverage', 'localphpunit', 'globalphpunit']);
 
 $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
+    'group' => isset($arguments['g']) ? $arguments['g'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
     'coverage' => isset($arguments['coverage']),
     'localphpunit' => isset($arguments['localphpunit']),

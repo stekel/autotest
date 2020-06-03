@@ -21,7 +21,7 @@ class PhpUnit extends Command {
         }
 
         if ( isset($this->config['filter']) ) {
-            
+
             $this->command .= '--filter '.$this->config['filter'].' ';
         }
 

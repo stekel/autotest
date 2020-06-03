@@ -9,7 +9,7 @@ use stekel\AutoTest\Commands\PhpUnit as PhpUnitCommand;
 use stekel\AutoTest\Config;
 
 class AutoTest extends Command {
-    
+
     /**
      * The name and signature of the console command.
      *
@@ -17,6 +17,7 @@ class AutoTest extends Command {
      */
     protected $signature = 'stekel:autotest
                             {--f|filter= : Apply PHPUnit filter}
+                            {--g|group= : Apply PHPUnit group}
                             {--c|coverage : Run PHPUnit with code coverage enabled}
                             {--d|directory= : Run PHPUnit on the given test directory (relative to the tests/ directory)}
                             ';
@@ -27,14 +28,14 @@ class AutoTest extends Command {
      * @var string
      */
     protected $description = 'Automatically run unit tests when a file is saved by utilizing entr.';
-    
+
     /**
      * Create a new command instance.
      *
      * @return void
      */
     public function __construct() {
-        
+
         parent::__construct();
     }
 
@@ -44,32 +45,37 @@ class AutoTest extends Command {
      * @return mixed
      */
     public function handle() {
-        
+
         $config = Config::buildFromLaravel();
-        
+
         $subCommand = 'artisan stekel:fancytest';
-        
+
         if ($this->option('filter')) {
-            
+
             $subCommand .= ' -f '.$this->option('filter');
+        }
+
+        if ($this->option('group')) {
+
+            $subCommand .= ' -g '.$this->option('group');
         }
         
         if ($this->option('coverage')) {
-            
+
             $subCommand .= ' -c ';
         }
-        
+
         if ($this->option('directory')) {
-            
+
             $subCommand .= ' -d '.$this->option('directory');
         }
-        
+
         $autoTest = new AutoTestCommand([
             'subCommand' => $subCommand,
             'ignoredPaths' => config('autotest.ignoredPaths'),
             'basePath' => base_path()
         ]);
-        
+
         (new AutoTestManager($autoTest, $config))->fire();
     }
 }
