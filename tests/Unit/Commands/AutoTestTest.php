@@ -16,11 +16,11 @@ class AutoTestTest extends TestCase
             'ignoredPaths' => null
         ]);
 
-        $this->assertContains('clear && while true; do '."\n", $autotest->get());
-        $this->assertContains('find . -name "*.php" ', $autotest->get());
-        $this->assertContains('| entr -d bash -c "clear && echo -e ', $autotest->get());
-        $this->assertContains('AutoTest '.(new Config([]))->version.' Running...', $autotest->get());
-        $this->assertContains('Tests are passing', $autotest->get());
-        $this->assertContains('Tests are failing', $autotest->get());
+        $this->assertStringContainsString('clear && while true; do '."\n", $autotest->get());
+        $this->assertStringContainsString('find . -name "*.php" ', $autotest->get());
+        $this->assertStringContainsString('| entr -d bash -c "clear && echo -e ', $autotest->get());
+        $this->assertStringContainsString('AutoTest '.(new Config([]))->version.' Running...', $autotest->get());
+        $this->assertStringContainsString('Tests are passing', $autotest->get());
+        $this->assertStringContainsString('Tests are failing', $autotest->get());
     }
 }
