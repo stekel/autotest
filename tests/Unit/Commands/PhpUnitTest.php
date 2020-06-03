@@ -9,55 +9,65 @@ class PhpUnitTest extends TestCase {
 
     /** @test **/
     public function can_build_base_phpunit_command() {
-        
+
         $phpunit = new PhpUnit();
-        
+
         $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
     }
-    
+
     /** @test **/
     public function can_build_base_phpunit_command_with_local_path() {
-        
+
         $phpunit = new PhpUnit([
             'localphpunit' => true,
         ]);
-        
+
         $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
     }
-    
+
     /** @test **/
     public function can_build_base_phpunit_command_with_global_path() {
-        
+
         $phpunit = new PhpUnit([
             'globalphpunit' => true,
         ]);
-        
+
         $this->assertEquals('phpunit --no-coverage ', $phpunit->get());
     }
-    
+
     /** @test **/
     public function can_build_phpunit_command_with_directory() {
-        
+
         $phpunit = new PhpUnit([
             'directory' => 'Unit/'
         ]);
-        
+
         $this->assertEquals('./vendor/bin/phpunit ./tests/Unit/. --no-coverage ', $phpunit->get());
     }
-    
+
     /** @test **/
     public function can_build_phpunit_command_with_a_filter() {
-        
+
         $phpunit = new PhpUnit([
             'filter' => 'UserTest'
         ]);
-        
+
         $this->assertEquals('./vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
     }
-    
+
+    /** @test **/
+    public function can_build_phpunit_command_with_a_group() {
+
+        $phpunit = new PhpUnit([
+            'group' => 'Authentication'
+        ]);
+
+        $this->assertEquals('./vendor/bin/phpunit --group Authentication --no-coverage ', $phpunit->get());
+    }
+
     /** @test **/
     public function can_build_phpunit_command_with_code_coverage() {
-        
+
         $phpunit = new PhpUnit([
             'coverage' => true
         ]);
@@ -66,10 +76,10 @@ class PhpUnitTest extends TestCase {
 
         $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini ./vendor/bin/phpunit ', $phpunit->get());
     }
-    
+
     /** @test **/
     public function can_build_phpunit_command_with_code_coverage_and_directory() {
-        
+
         $phpunit = new PhpUnit([
             'coverage' => true,
             'directory' => 'Unit/'
