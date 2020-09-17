@@ -46,7 +46,7 @@ class FancyTest extends Command {
     public function handle() {
 
         $config = Config::buildFromLaravel();
-        
+
         $command = new PhpUnit([
             'filter' => $this->option('filter'),
             'group' => $this->option('group'),

@@ -59,7 +59,7 @@ class AutoTest extends Command {
 
             $subCommand .= ' -g '.$this->option('group');
         }
-        
+
         if ($this->option('coverage')) {
 
             $subCommand .= ' -c ';
