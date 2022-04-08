@@ -47,6 +47,7 @@ class PhpUnit extends Command {
 
         if (isset($this->config['coverage']) && $this->config['coverage']) {
             $this->command .= 'php -c '.__DIR__.'/../enable_xdebug.ini ';
+            $this->command .= '-d extension=pcov -d pcov.enabled=1 ';
         }
 
         if (isset($this->config['localphpunit']) && $this->config['localphpunit']) {

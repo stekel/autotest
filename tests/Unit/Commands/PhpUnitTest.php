@@ -74,7 +74,7 @@ class PhpUnitTest extends TestCase {
 
         $path = str_replace('tests/Unit', 'src', __DIR__);
 
-        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini ./vendor/bin/phpunit ', $phpunit->get());
+        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ', $phpunit->get());
     }
 
     /** @test **/
@@ -87,6 +87,6 @@ class PhpUnitTest extends TestCase {
 
         $path = str_replace('tests/Unit', 'src', __DIR__);
 
-        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini ./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
+        $this->assertEquals('php -c '.$path.'/../enable_xdebug.ini -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
     }
 }

@@ -16,7 +16,7 @@ class Config {
      *
      * @var string
      */
-    public $version = 'v1.0';
+    public $version = 'v1.2';
 
     /**
      * Construct
