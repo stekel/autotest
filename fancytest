@@ -5,16 +5,16 @@ require __DIR__.'/src/AutoLoad.php';
 
 stekel\AutoTest\autoload();
 
-$arguments = getopt('f:d:g:', ['coverage', 'localphpunit', 'globalphpunit']);
+$arguments = getopt('f:d:g:c', ['coverage', 'localphpunit', 'globalphpunit']);
 
 $phpunit = new stekel\AutoTest\Commands\PhpUnit([
     'filter' => isset($arguments['f']) ? $arguments['f'] : null,
     'group' => isset($arguments['g']) ? $arguments['g'] : null,
     'directory' => isset($arguments['d']) ? $arguments['d'] : null,
-    'coverage' => isset($arguments['coverage']),
+    'coverage' => isset($arguments['coverage']) || isset($arguments['c']),
     'localphpunit' => isset($arguments['localphpunit']),
     'globalphpunit' => isset($arguments['globalphpunit']),
-    'basePath' => stekel\AutoTest\vendorDirectory()
+    'basePath' => stekel\AutoTest\vendorDirectory(),
 ]);
 
 $config = stekel\AutoTest\Config::buildFromLaravel();
