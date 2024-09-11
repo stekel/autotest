@@ -5,34 +5,10 @@ Automatically run unit tests when a project file is saved.
 ## Requirements
 
 - PHP >= 7
-- PHPUnit >= 6
+- PHPUnit >= 6 or Pest > 2
 - entr >= 3.4
 
 ## Installation
-
-### Laravel
-
-- Install entr
-```bash
-sudo apt-get install entr
-```
-
-- Require it with Composer:
-```bash
-composer require stekel/autotest --dev
-```
-
-- (Laravel <= 5.4) Add the service provider at the end of your `config/app.php`:
-```php
-'providers' => [
-    
-    // ...
-    
-    stekel\AutoTest\AutoTestServiceProvider::class,
-],
-```
-
-### Generic
 
 - Install entr
 ```bash

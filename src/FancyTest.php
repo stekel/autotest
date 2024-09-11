@@ -2,11 +2,9 @@
 
 namespace stekel\AutoTest;
 
+use Illuminate\Support\Str;
 use stekel\AutoTest\Commands\PhpUnit;
 
-/**
- * FancyTest Class
- */
 class FancyTest
 {
     /**
@@ -17,19 +15,11 @@ class FancyTest
     protected $command;
 
     /**
-     * Config
-     *
-     * @var Config
-     */
-    protected $config;
-
-    /**
      * Construct
      */
-    public function __construct(PhpUnit $command, Config $config)
+    public function __construct(PhpUnit $command)
     {
         $this->command = $command;
-        $this->config = $config;
     }
 
     /**
@@ -42,20 +32,18 @@ class FancyTest
         $handle = $this->command->execute();
         $phpunitDone = false;
 
-        if ($this->config->removePhpUnitHeader()) {
+        $read = fgets($handle);
+
+        if ($read) {
+            if (! Str::startsWith($read, 'PHPUnit')) {
+                rewind($handle);
+            }
+
             $read = fgets($handle);
 
             if ($read) {
-                if (! Str::startsWith($read, 'PHPUnit')) {
+                if (! Str::startsWith($read, "\n")) {
                     rewind($handle);
-                }
-
-                $read = fgets($handle);
-
-                if ($read) {
-                    if (! Str::startsWith($read, "\n")) {
-                        rewind($handle);
-                    }
                 }
             }
         }
@@ -77,25 +65,23 @@ class FancyTest
 
             $output = $read;
 
-            if ($this->config->simplifyLaravelPipeline()) {
-                if (Str::contains($output, 'vendor/laravel')) {
-                    echo 'Laravel framework pipline: ';
+            if (Str::contains($output, 'vendor/laravel')) {
+                echo 'Laravel framework pipline: ';
 
-                    while (true) {
-                        $read = fgets($handle);
+                while (true) {
+                    $read = fgets($handle);
 
-                        if (Str::contains($read, 'vendor/laravel')) {
-                            echo '.';
-                        } else {
-                            echo "\n";
-                            $output = $read;
-                            break;
-                        }
+                    if (Str::contains($read, 'vendor/laravel')) {
+                        echo '.';
+                    } else {
+                        echo "\n";
+                        $output = $read;
+                        break;
                     }
                 }
             }
 
-            if ($this->config->simplifyProjectPath() && ! Str::startsWith($output, '-') && ! Str::startsWith($output, '+')) {
+            if (! Str::startsWith($output, '-') && ! Str::startsWith($output, '+')) {
                 $output = str_replace(__DIR__, '{project}', $output);
             }
 

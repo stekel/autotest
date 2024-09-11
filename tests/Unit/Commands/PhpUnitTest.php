@@ -1,92 +1,70 @@
 <?php
 
-namespace stekel\AutoTest\Tests\Unit\Commands;
-
 use stekel\AutoTest\Commands\PhpUnit;
-use stekel\AutoTest\Tests\TestCase;
 
-class PhpUnitTest extends TestCase {
+test('can build base phpunit command', function () {
+    $phpunit = new PhpUnit();
 
-    /** @test **/
-    public function can_build_base_phpunit_command() {
+    expect($phpunit->get())->toEqual('./vendor/bin/phpunit --no-coverage ');
+});
 
-        $phpunit = new PhpUnit();
+test('can build base phpunit command with local path', function () {
+    $phpunit = new PhpUnit([
+        'localphpunit' => true,
+    ]);
 
-        $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
-    }
+    expect($phpunit->get())->toEqual('./vendor/bin/phpunit --no-coverage ');
+});
 
-    /** @test **/
-    public function can_build_base_phpunit_command_with_local_path() {
+test('can build base phpunit command with global path', function () {
+    $phpunit = new PhpUnit([
+        'globalphpunit' => true,
+    ]);
 
-        $phpunit = new PhpUnit([
-            'localphpunit' => true,
-        ]);
+    expect($phpunit->get())->toEqual('phpunit --no-coverage ');
+});
 
-        $this->assertEquals('./vendor/bin/phpunit --no-coverage ', $phpunit->get());
-    }
+test('can build phpunit command with directory', function () {
+    $phpunit = new PhpUnit([
+        'directory' => 'Unit/',
+    ]);
 
-    /** @test **/
-    public function can_build_base_phpunit_command_with_global_path() {
+    expect($phpunit->get())->toEqual('./vendor/bin/phpunit ./tests/Unit/. --no-coverage ');
+});
 
-        $phpunit = new PhpUnit([
-            'globalphpunit' => true,
-        ]);
+test('can build phpunit command with a filter', function () {
+    $phpunit = new PhpUnit([
+        'filter' => 'UserTest',
+    ]);
 
-        $this->assertEquals('phpunit --no-coverage ', $phpunit->get());
-    }
+    expect($phpunit->get())->toEqual('./vendor/bin/phpunit --filter UserTest --no-coverage ');
+});
 
-    /** @test **/
-    public function can_build_phpunit_command_with_directory() {
+test('can build phpunit command with a group', function () {
+    $phpunit = new PhpUnit([
+        'group' => 'Authentication',
+    ]);
 
-        $phpunit = new PhpUnit([
-            'directory' => 'Unit/'
-        ]);
+    expect($phpunit->get())->toEqual('./vendor/bin/phpunit --group Authentication --no-coverage ');
+});
 
-        $this->assertEquals('./vendor/bin/phpunit ./tests/Unit/. --no-coverage ', $phpunit->get());
-    }
+test('can build phpunit command with code coverage', function () {
+    $phpunit = new PhpUnit([
+        'coverage' => true,
+    ]);
 
-    /** @test **/
-    public function can_build_phpunit_command_with_a_filter() {
+    $path = str_replace('tests/Unit', 'src', __DIR__);
 
-        $phpunit = new PhpUnit([
-            'filter' => 'UserTest'
-        ]);
+    expect($phpunit->get())->toEqual('php -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ');
+});
 
-        $this->assertEquals('./vendor/bin/phpunit --filter UserTest --no-coverage ', $phpunit->get());
-    }
+test('can build phpunit command with code coverage and directory', function () {
+    $phpunit = new PhpUnit([
+        'coverage' => true,
+        'directory' => 'Unit/',
+    ]);
 
-    /** @test **/
-    public function can_build_phpunit_command_with_a_group() {
+    $path = str_replace('tests/Unit', 'src', __DIR__);
 
-        $phpunit = new PhpUnit([
-            'group' => 'Authentication'
-        ]);
-
-        $this->assertEquals('./vendor/bin/phpunit --group Authentication --no-coverage ', $phpunit->get());
-    }
-
-    /** @test **/
-    public function can_build_phpunit_command_with_code_coverage() {
-
-        $phpunit = new PhpUnit([
-            'coverage' => true
-        ]);
-
-        $path = str_replace('tests/Unit', 'src', __DIR__);
-
-        $this->assertEquals('php -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ', $phpunit->get());
-    }
-
-    /** @test **/
-    public function can_build_phpunit_command_with_code_coverage_and_directory() {
-
-        $phpunit = new PhpUnit([
-            'coverage' => true,
-            'directory' => 'Unit/'
-        ]);
-
-        $path = str_replace('tests/Unit', 'src', __DIR__);
-
-        $this->assertEquals('php -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ./tests/Unit/. ', $phpunit->get());
-    }
-}
+    expect($phpunit->get())->toEqual('php -d extension=pcov -d pcov.enabled=1 ./vendor/bin/phpunit ./tests/Unit/. ');
+});

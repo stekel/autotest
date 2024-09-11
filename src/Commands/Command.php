@@ -2,22 +2,22 @@
 
 namespace stekel\AutoTest\Commands;
 
-abstract class Command implements CommandContract {
-    
+abstract class Command implements CommandContract
+{
     /**
      * Command
      *
      * @var string
      */
     protected $command = '';
-    
+
     /**
      * Configuration
      *
      * @var array
      */
     protected $config = [];
-    
+
     /**
      * Base path
      *
@@ -27,13 +27,11 @@ abstract class Command implements CommandContract {
 
     /**
      * Construct
-     *
-     * @param array $config
      */
-    public function __construct(array $config=[]) {
-        
+    public function __construct(array $config = [])
+    {
         $this->basePath = isset($config['basePath']) ? $config['basePath'] : realpath(__DIR__.'/../../');
-        
+
         $this->config = $config;
     }
 
@@ -42,46 +40,47 @@ abstract class Command implements CommandContract {
      *
      * @return bool|resource *handler
      */
-    public function execute() {
-        
+    public function execute()
+    {
         $this->handle();
-        
-        return popen($this->command, "r");
+
+        return popen($this->command, 'r');
     }
-    
+
     /**
      * Fire the command
      *
      * @return void
      */
-    public function fire() {
-        
+    public function fire()
+    {
         $this->handle();
-        
-        passthru($this->command);
+
+        $proc = proc_open($this->command, [STDIN, STDOUT, STDOUT], $pipes);
+        proc_close($proc);
     }
-    
+
     /**
      * Return the command
      *
      * @return string
      */
-    public function get() {
-        
+    public function get()
+    {
         $this->handle();
 
         return $this->command;
     }
-    
+
     /**
      * Clear
      *
      * @return Command
      */
-    public function clear() {
-        
+    public function clear()
+    {
         $this->command .= 'clear && ';
-        
+
         return $this;
     }
 }

@@ -7,12 +7,28 @@ stekel\AutoTest\autoload();
 
 unset($argv[0]);
 
-$config = stekel\AutoTest\Config::buildFromLaravel();
+$subCommand = 'fancytest '.implode(' ', $argv);
+
+if (file_exists('./vendor/bin/pest')) {
+    $arguments = getopt('f:d:g:c:p', ['coverage', 'parallel']);
+
+    $subCommand = (new stekel\AutoTest\Commands\Pest([
+        'filter' => $arguments['f'] ?? null,
+        'group' => $arguments['g'] ?? null,
+        'directory' => $arguments['d'] ?? null,
+        'parallel' => isset($arguments['parallel']) || isset($arguments['p']),
+        'coverage' => isset($arguments['coverage']) || isset($arguments['c']),
+        'basePath' => stekel\AutoTest\vendorDirectory(),
+    ]))->get();
+}
 
 $autotest = new stekel\AutoTest\Commands\AutoTest([
-    'subCommand' => 'fancytest '.implode(' ', $argv),
-    'ignoredPaths' => $config->ignoredPaths(),
+    'subCommand' => $subCommand,
+    'ignoredPaths' => [
+        'vendor/*',
+        'storage/*',
+    ],
     'basePath' => stekel\AutoTest\vendorDirectory(),
 ]);
 
-exit((new stekel\AutoTest\AutoTest($autotest, $config))->fire());
+exit((new stekel\AutoTest\AutoTest($autotest))->fire());

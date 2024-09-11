@@ -4,16 +4,18 @@ namespace stekel\AutoTest\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class TestCase extends BaseTestCase {
-
+abstract class TestCase extends BaseTestCase
+{
     /**
      * Base path
      *
      * @return string
      */
-    protected $basePath;
+    public $basePath;
 
-    public function setUp(): void {
+    protected function setUp(): void
+    {
+        parent::setUp();
 
         $this->basePath = realpath(__DIR__.'/../');
     }

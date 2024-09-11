@@ -2,58 +2,53 @@
 
 namespace stekel\AutoTest;
 
-use stekel\AutoTest\Commands\AutoTest as AutoTestCommand;
 use Exceptions\EntrNotInstalled;
+use stekel\AutoTest\Commands\AutoTest as AutoTestCommand;
 
-/**
- * AutoTest Class
- */
-class AutoTest {
-    
+class AutoTest
+{
+    /**
+     * Package version
+     *
+     * @var string
+     */
+    public const AUTOTEST_VERSION = 'v2.0';
+
     /**
      * Command
      *
      * @var Command
      */
     protected $command;
-    
-    /**
-     * Config
-     *
-     * @return Config
-     */
-    protected $config;
-    
+
     /**
      * Construct
      */
-    public function __construct(AutoTestCommand $command, Config $config) {
-        
+    public function __construct(AutoTestCommand $command)
+    {
         $this->command = $command;
-        $this->config = $config;
-        
+
         $this->checkPreRecs();
     }
-    
+
     /**
      * Fire up entr to listen for file changes
      *
      * @return void
      */
-    public function fire() {
-        
+    public function fire()
+    {
         $this->command->fire();
     }
-    
+
     /**
      * Verify all prerequisites
      *
      * @return void
      */
-    private function checkPreRecs() {
-        
-        if ( exec('which entr') == '' ) {
-            
+    private function checkPreRecs()
+    {
+        if (exec('which entr') == '') {
             throw new EntrNotInstalled('Error: Seems entr is not installed. Try running: sudo apt-get install entr');
         }
     }
