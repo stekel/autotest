@@ -14,7 +14,8 @@ test('can build a pest command with parameters', function () {
         'group' => 'sample-group',
         'directory' => 'sample-directory',
         'coverage' => 'coverage',
+        'parallel' => 'parallel',
     ]);
 
-    $this->assertStringContainsString('php -d opcache.enable=0 -d extension=pcov -d pcov.enabled=1 ./vendor/bin/pest ./tests/sample-directory/. --filter sample-filter --group sample-group --compact ', $pest->get());
+    $this->assertStringContainsString('php -d opcache.enable=0 -d extension=pcov -d pcov.enabled=1 ./vendor/bin/pest ./tests/sample-directory/. --filter sample-filter --group sample-group --parallel --compact ', $pest->get());
 });

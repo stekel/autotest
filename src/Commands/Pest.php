@@ -31,6 +31,10 @@ class Pest extends PhpUnit
             $this->command .= '--no-coverage ';
         }
 
+        if (isset($this->config['parallel']) && $this->config['parallel']) {
+            $this->command .= '--parallel ';
+        }
+
         $this->command .= '--compact ';
 
         return $this;
