@@ -45,12 +45,6 @@ class PhpUnit extends Command
             $this->command .= 'php -d extension=pcov -d pcov.enabled=1 ';
         }
 
-        if (isset($this->config['localphpunit']) && $this->config['localphpunit']) {
-            $this->command .= './vendor/bin/phpunit ';
-
-            return;
-        }
-
         if (isset($this->config['globalphpunit']) && $this->config['globalphpunit']) {
             $this->command .= 'phpunit ';
 
