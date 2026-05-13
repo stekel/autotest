@@ -4,7 +4,7 @@ namespace stekel\AutoTest\Commands;
 
 class Pest extends PhpUnit
 {
-    public const PEST_BASE_COMMAND = 'php -d opcache.enable=0 -d extension=pcov -d pcov.enabled=1 ./vendor/bin/pest';
+    public const PEST_BASE_COMMAND = 'php -d opcache.enable=0 ./vendor/bin/pest';
 
     /**
      * Handler
@@ -31,11 +31,7 @@ class Pest extends PhpUnit
             $this->command .= '--no-coverage ';
         }
 
-        if (isset($this->config['parallel']) && $this->config['parallel']) {
-            $this->command .= '--parallel ';
-        }
-
-        $this->command .= '--compact ';
+        $this->command .= '--parallel --compact ';
 
         return $this;
     }

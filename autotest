@@ -10,13 +10,12 @@ unset($argv[0]);
 $subCommand = 'fancytest '.implode(' ', $argv);
 
 if (file_exists('./vendor/bin/pest')) {
-    $arguments = getopt('f:d:g:c:p', ['coverage', 'parallel']);
+    $arguments = getopt('f:d:g:c', ['coverage']);
 
     $subCommand = (new stekel\AutoTest\Commands\Pest([
         'filter' => $arguments['f'] ?? null,
         'group' => $arguments['g'] ?? null,
         'directory' => $arguments['d'] ?? null,
-        'parallel' => isset($arguments['parallel']) || isset($arguments['p']),
         'coverage' => isset($arguments['coverage']) || isset($arguments['c']),
         'basePath' => stekel\AutoTest\vendorDirectory(),
     ]))->get();
