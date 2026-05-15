@@ -17,4 +17,13 @@ test('can build a pest command with parameters', function () {
     ]);
 
     $this->assertStringContainsString('php -d opcache.enable=0 ./vendor/bin/pest ./tests/sample-directory/. --filter sample-filter --group sample-group --parallel --compact ', $pest->get());
+    $this->assertStringNotContainsString('--no-coverage', $pest->get());
+});
+
+test('coverage flag removes --no-coverage from pest command', function () {
+    $without = new Pest;
+    $with = new Pest(['coverage' => true]);
+
+    $this->assertStringContainsString('--no-coverage', $without->get());
+    $this->assertStringNotContainsString('--no-coverage', $with->get());
 });

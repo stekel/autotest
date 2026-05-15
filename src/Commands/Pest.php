@@ -27,8 +27,10 @@ class Pest extends PhpUnit
             $this->command .= '--group '.$this->config['group'].' ';
         }
 
-        if (! isset($this->config['coverage']) || ! $this->config['coverage']) {
-            $this->command .= '--no-coverage ';
+        $this->command .= '--no-coverage ';
+
+        if (isset($this->config['coverage']) && $this->config['coverage']) {
+            $this->command = str_replace('--no-coverage ', '', $this->command);
         }
 
         $this->command .= '--parallel --compact ';
