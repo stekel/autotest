@@ -4,7 +4,7 @@ namespace stekel\AutoTest;
 
 if (!\function_exists('autoload')) {
     
-    function autoload(array $autoloads=null) {
+    function autoload(?array $autoloads=null) {
         
         if (is_null($autoloads)) {
             
